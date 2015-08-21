@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>D3 Test</title>
+    <link href="jsgraph.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="lib/d3/d3.min.js"></script>
+
+
+    <link type="text/css" rel="stylesheet" href="syntaxhighlighter_3.0.83/styles/shCore.css"/> <!--核心样式表(必选)-->
+    <link type="text/css" rel="stylesheet" href="syntaxhighlighter_3.0.83/styles/shThemeRDark.css"/> <!--主题样式表(多重样式选一)-->
+
+    <script type="text/javascript" src="syntaxhighlighter_3.0.83/scripts/shCore.js"></script> <!--核心js脚本(必选)-->
+    <script type="text/javascript" src="syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript">
+        SyntaxHighlighter.all()
+    </script>
+
+    <script src="lib/jquery/dist/jquery.js"></script>
+
+</head>
+<body>
+
+<div id="samplecode" style="width: 900px;">
+<pre class="brush: js">
+var text = "exposed!";
+
+function first(){
+    var insideFirst = "inside first";
+    function second(){
+        var insideFirst = "inside second";
+        console.log(text);        // exposed!
+        console.log(insideFirst); // inside second
+    }
+
+    function third(text){
+        insideThird = "inside third";
+        console.log(text);        // into third
+        console.log(insideFirst); // inside first
+        console.log(insideThird); // inside third
+    }
+    third("into third");
+}
+
+function anotherFunc(){
+    // variables
+    console.log(text);        // exposed!
+    console.log(insideThird); // inside third
+    console.log(insideFirst); // ReferenceError
+    // functions
+    first();
+    second();  // ReferenceError
+}
+
+first();
+anotherFunc();
+
+http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html
+</pre>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // scope 是一个树形结构, linenum >= 1
+        var blocks = {"min":1,"max":31,"children":[{"min":3,"max":18,"children":[{"min":5,"max":9,"children":[]},{"min":11,"max":16,"children":[]}]},{"min":20,"max":28,"children":[]}]};
+
+        var getrange = function(node, lineNum) {
+            lineNum = lineNum || 0;
+            //console.log("in " + node.min + " : " + node.max + " for line " + lineNum);
+            if(node.min > lineNum || node.max < lineNum) {
+                return [0, 0];
+            }
+
+            if(node.children) {
+                for (var i = 0; i < node.children.length; i++) {
+                    var childRange = getrange(node.children[i], lineNum);
+                    if(childRange[0] > 0) {
+                        return childRange;
+                    }
+                }
+            }
+            return [node.min, node.max];
+        };
+
+        $('#samplecode').delegate('.line','mouseenter',function(){
+            //$(this).closest("div").toggleClass('highlighted');
+            var classList = $(this).attr('class').split(/\s+/);
+            $.each(classList, function(index, item){
+                if (item.startsWith('number')) {
+                    var lineNumber = parseInt(item.substring(6));
+                    var range = getrange(blocks, lineNumber);
+                    console.log(range[0] + " : " + range[1] + " for line " + lineNumber);
+
+                    if(range[0] == 0) {
+                        return;
+                    }
+
+                    for (var i = range[0]; i <= range[1]; i++) {
+                        $('#samplecode .gutter .number' + i).addClass('highlighted');
+                        $('#samplecode .code .number' + i).addClass('highlighted');
+                    }
+                }
+            });
+        });
+
+        $('#samplecode').delegate('.line','mouseleave',function(){
+            $('#samplecode .line').removeClass('highlighted');
+        });
+
+        $('#samplecode').click(function(){
+            // $('#num0').attr('transform',"translate(95,95)")
+            // .animate({ opacity:0.5});
+
+            d3.selectAll("#num0").transition().attr('transform',"translate(95,95)")
+            .attr('opacity',"0.5")
+        });
+
+    });
+</script>
+
+
+<svg width="800" height="600">
+    <defs>
+        <filter id="f3" x="0" y="0" width="200%" height="200%">
+            <feOffset result="offOut" in="SourceAlpha" dx="1" dy="1" />
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+        </filter>
+    </defs>
+
+    <defs>
+        <marker id="markerCircle" markerWidth="8" markerHeight="8" refx="5" refy="5">
+            <circle cx="5" cy="5" r="3" style="stroke: none; fill:#000000;"/>
+        </marker>
+
+        <marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto">
+            <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+        </marker>
+    </defs>
+
+
+    <g id="num0" transform="translate(100,100)">
+        <rect x="0" y="0" width="120" height="60" fill="white" stroke-width="3" stroke="Black" filter="url(#f3)"></rect>
+        <g>
+            <rect x="0" y="0" width="120" height="30" fill="rgba(0,0,255,0.5)" stroke-width="1" stroke="Black"></rect>
+            <text class="header" x="60" y="20" text-anchor="middle" fill="white">Add</text>
+        </g>
+        <g transform="translate(0,30)">
+            <rect x="0" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+            <text x="30" y="20" text-anchor="middle" fill="black">[[scope]]</text>
+            <rect x="60" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+            <text x="90" y="20" text-anchor="middle" fill="black"></text>
+        </g>
+    </g>
+
+    <path d="M190,145 H250 V115 H292"
+          style="stroke: #000000; stroke-width: 1px; fill: none;
+                   marker-start: url(#markerCircle);
+                   marker-end: url(#markerArrow) "
+            />
+
+    <g id="num1" transform="translate(300,100)">
+        <rect x="0" y="0" width="120" height="60" fill="white" stroke-width="3" stroke="Black" filter="url(#f3)"></rect>
+        <g>
+            <rect x="0" y="0" width="120" height="30" fill="rgba(0,0,255,0.5)" stroke-width="1" stroke="Black"></rect>
+            <text class="header" x="60" y="20" text-anchor="middle" fill="white">Scope Chain</text>
+        </g>
+        <g transform="translate(0,30)">
+            <rect x="0" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+            <text x="30" y="20" text-anchor="middle" fill="black">0</text>
+            <rect x="60" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+            <text x="90" y="20" text-anchor="middle" fill="black"></text>
+        </g>
+    </g>
+
+    <path d="M390,145 H450 V115 H492"
+          style="stroke: #000000; stroke-width: 1px; fill: none;
+                   marker-start: url(#markerCircle);
+                   marker-end: url(#markerArrow) "
+            />
+
+    <g id="num2" transform="translate(500,100)">
+        <rect x="0" y="0" width="120" height="120" fill="white" stroke-width="3" stroke="Black" filter="url(#f3)"></rect>
+        <g>
+            <rect x="0" y="0" width="120" height="30" fill="rgba(0,0,255,0.5)" stroke-width="1" stroke="Black"></rect>
+            <text class="header" x="60" y="20" text-anchor="middle" fill="white">Global object</text>
+        </g>
+        <g transform="translate(0,30)">
+            <rect x="0" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+            <text x="30" y="20" text-anchor="middle" fill="black">this</text>
+            <rect x="60" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+            <text x="90" y="20" text-anchor="middle" fill="black">window</text>
+        </g>
+        <g transform="translate(0,60)">
+            <rect x="0" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+            <text x="30" y="20" text-anchor="middle" fill="black">window</text>
+            <rect x="60" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+            <text x="90" y="20" text-anchor="middle" fill="black">(object)</text>
+        </g>
+        <g transform="translate(0,90)">
+            <rect x="0" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+            <text x="30" y="20" text-anchor="middle" fill="black">add</text>
+            <rect x="60" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+            <text x="90" y="20" text-anchor="middle" fill="black">(function)</text>
+        </g>
+    </g>
+</svg>
+
+</body>
+</html>
