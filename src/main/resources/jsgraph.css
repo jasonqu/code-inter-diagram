@@ -5,3 +5,30 @@ svg text.header{
 svg text {
     font: 12px Verdana, Helvetica, Arial, sans-serif;
 }
+
+svg {
+	float : left;
+}
+
+#svg1 {
+    float:left;
+}
+#svg1 svg{
+    clear:both;
+}
+
+
+/* wrapper */
+svg rect.wrapper {
+	fill: white;
+	stroke: black;
+	stroke-width: 3;
+    filter: url(#f3);
+}
+
+
+
+
+
+
+

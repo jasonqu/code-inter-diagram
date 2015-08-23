@@ -9,4 +9,5 @@ import spray.json.JsonFormat
 package object json {
   implicit val blocksFormat: JsonFormat[Blocks] = lazyFormat(jsonFormat(Blocks, "min", "max", "children"))
 
+//  implicit val blocksFormat: JsonFormat[Blocks] = lazyFormat(jsonFormat(Blocks, "min", "max", "children"))
 }

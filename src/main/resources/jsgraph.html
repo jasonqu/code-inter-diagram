@@ -8,7 +8,7 @@
 
 
     <link type="text/css" rel="stylesheet" href="syntaxhighlighter_3.0.83/styles/shCore.css"/> <!--核心样式表(必选)-->
-    <link type="text/css" rel="stylesheet" href="syntaxhighlighter_3.0.83/styles/shThemeRDark.css"/> <!--主题样式表(多重样式选一)-->
+    <link type="text/css" rel="stylesheet" href="syntaxhighlighter_3.0.83/styles/shThemeDefault.css"/> <!--主题样式表(多重样式选一)-->
 
     <script type="text/javascript" src="syntaxhighlighter_3.0.83/scripts/shCore.js"></script> <!--核心js脚本(必选)-->
     <script type="text/javascript" src="syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<div id="samplecode" style="width: 900px;">
+<div id="samplecode" style="width: 480px;float:left;">
 <pre class="brush: js">
 var text = "exposed!";
 
@@ -120,8 +120,7 @@ http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html
     });
 </script>
 
-
-<svg width="800" height="600">
+<svg id="codegraph" width="800" height="600">
     <defs>
         <filter id="f3" x="0" y="0" width="200%" height="200%">
             <feOffset result="offOut" in="SourceAlpha" dx="1" dy="1" />
@@ -142,7 +141,7 @@ http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html
 
 
     <g id="num0" transform="translate(100,100)">
-        <rect x="0" y="0" width="120" height="60" fill="white" stroke-width="3" stroke="Black" filter="url(#f3)"></rect>
+        <rect class="wrapper" x="0" y="0" width="120" height="60"></rect>
         <g>
             <rect x="0" y="0" width="120" height="30" fill="rgba(0,0,255,0.5)" stroke-width="1" stroke="Black"></rect>
             <text class="header" x="60" y="20" text-anchor="middle" fill="white">Add</text>
@@ -207,6 +206,105 @@ http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html
         </g>
     </g>
 </svg>
+
+<div id="svg1" style="float:right;">
+<svg id="codegraph2" width="600" height="600" fill="blue">
+    <defs>
+        <filter id="f3" x="0" y="0" width="200%" height="200%">
+            <feOffset result="offOut" in="SourceAlpha" dx="1" dy="1" />
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+        </filter>
+    </defs>
+
+    <defs>
+        <marker id="markerCircle" markerWidth="8" markerHeight="8" refx="5" refy="5">
+            <circle cx="5" cy="5" r="3" style="stroke: none; fill:#000000;"/>
+        </marker>
+
+        <marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto">
+            <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+        </marker>
+    </defs>
+ 
+</svg>
+
+
+</div>
+<script type="text/javascript">
+
+    // <g id="num1" transform="translate(300,100)">
+    //     <rect x="0" y="0" width="120" height="60" fill="white" stroke-width="3" stroke="Black" filter="url(#f3)"></rect>
+    //     <g>
+    //         <rect x="0" y="0" width="120" height="30" fill="rgba(0,0,255,0.5)" stroke-width="1" stroke="Black"></rect>
+    //         <text class="header" x="60" y="20" text-anchor="middle" fill="white">Scope Chain</text>
+    //     </g>
+    //     <g transform="translate(0,30)">
+    //         <rect x="0" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+    //         <text x="30" y="20" text-anchor="middle" fill="black">0</text>
+    //         <rect x="60" y="0" width="60" height="30" fill="rgba(0,0,255,0.1)" stroke-width="1" stroke="Black"></rect>
+    //         <text x="90" y="20" text-anchor="middle" fill="black"></text>
+    //     </g>
+    // </g>
+
+            var w = 500;
+            var h = 500;
+            var padding = 20;
+            var dataset = [
+            {id:"num1",width:120, height:60,
+            head : {text:"Scope Chain"},
+
+            children : [
+            {key:"this", value:"window"},
+            {key:"window", value:"object"},
+            {key:"add", value:"(function)"}
+
+            ]
+        }
+            ];
+            var svg = d3.select("#codegraph2");
+            console.log(svg);
+
+            var groups = svg.selectAll("g")
+                    .data(dataset)
+                    .enter()
+                    .append("g")
+                    .attr("id", function(d) {
+                        return d.id;
+                    })
+                    .attr("fill","red")
+                    .attr("transform","translate(10,10)");
+
+                    groups.data(function(d) {
+                        return d.children;
+                    })
+                    .enter()
+                    .append("rect")
+
+
+            
+                    groups.append("rect")
+                    .attr("class", "wrapper")
+                    .attr("x", 0)
+                    .attr("y", 0)
+                    .attr("width", function(d) {
+                        return d.width;
+                    })
+                    .attr("height", function(d) {
+                        return d.height;
+                    });
+
+                    
+
+
+
+
+
+
+
+
+
+</script>
 
 </body>
 </html>
