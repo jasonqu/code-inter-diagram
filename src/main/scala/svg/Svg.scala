@@ -9,23 +9,23 @@ trait SvgGraph {
   def render: String
 }
 
-case class RectAngleWithText(origin: Point, size: Size, fillColor: String, content: String) extends SvgGraph {
-  override def render: String = SvgConvertor.genRectText(this)
+case class RectAngleWithText(origin: Point, size: Size, fillColor: String, content: String, opacity: Double, `class`: String) extends SvgGraph {
+  override def render: String = SvgConverter.genRectText(this)
 }
 
 case class ClassDiagram(elemId: String, origin: Point, headerSize: Size, title: String, fillColor: String, contents: List[(String, String)])
   extends SvgGraph {
   lazy val cellHeight = headerSize.height
   lazy val size = contents.size
-  lazy val header = RectAngleWithText(Point(0,0), headerSize, fillColor, title)
+  lazy val header = RectAngleWithText(Point(0, 0), headerSize, fillColor, title, 1, "header")
   lazy val rectangles: List[RectAngleWithText] =
     contents.zipWithIndex.foldRight(List[RectAngleWithText]()) { case (((key, value), index), list) =>
-      RectAngleWithText(Point(origin.x, origin.y + cellHeight * (index + 1)),
-        headerSize.copy(width = headerSize.width / 2), fillColor, key) ::
-        RectAngleWithText(Point(origin.x + headerSize.width / 2, origin.y + cellHeight * (index + 1)),
-          headerSize.copy(width = headerSize.width / 2), fillColor, value) ::
+      RectAngleWithText(Point(0, cellHeight * (index + 1)),
+        headerSize.copy(width = headerSize.width / 2), fillColor, key, 0.2, "content") ::
+        RectAngleWithText(Point(headerSize.width / 2, cellHeight * (index + 1)),
+          headerSize.copy(width = headerSize.width / 2), fillColor, value, 0.2, "content") ::
         list
     }
 
-  override def render: String = SvgConvertor.genClassDiagram(this)
+  override def render: String = SvgConverter.genClassDiagram(this)
 }
