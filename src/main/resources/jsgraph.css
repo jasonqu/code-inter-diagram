@@ -26,6 +26,15 @@ svg rect.wrapper {
     filter: url(#f3);
 }
 
+/* connecting line */
+svg path.connecting {
+    stroke: #000000;
+    stroke-width: 1px;
+    fill: none;
+    marker-start: url(#markerCircle);
+    marker-end: url(#markerArrow)
+}
+
 
 
 
