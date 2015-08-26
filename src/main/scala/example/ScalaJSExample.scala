@@ -2,6 +2,38 @@ package example
 
 class Example[Builder, Output <: FragT, FragT]
              (val bundle: scalatags.generic.Bundle[Builder, Output, FragT], exampleName: String){
+  val funtest = {
+    import bundle.all._
+
+    val posts = Seq(
+      ("alice", "i like pie"),
+      ("bob", "pie is evil i hate you"),
+      ("charlie", "i like pie and pie is evil, i hat myself")
+    )
+
+    def imgBox(source: String, text: String) = div(
+      img(src:=source),
+      div(
+        p(text)
+      )
+    )
+
+    html(
+      head(
+        script("some script")
+      ),
+      body(
+        h1("This is my title"),
+        imgBox("www.mysite.com/imageOne.png", "This is the first image displayed on the site"),
+        div(`class`:="content")(
+          for ((name, text) <- posts) yield imgBox(name, text),
+          p("blah blah blah i am text"),
+          imgBox("www.mysite.com/imageTwo.png", "This image is very interesting")
+        )
+      )
+    )
+  }
+
   val htmlFrag = {
     import bundle.all._
     div(
@@ -190,7 +222,7 @@ class Example[Builder, Output <: FragT, FragT]
 }
 object ScalaJSExample extends App {
   val textExample = new Example(scalatags.Text, "scalatags.Text Example")
-  println(textExample.svgFrag.render)
+  println(textExample.funtest.render)
 //  def main(): Unit = {
 //    val textExample = new Example(scalatags.Text, "scalatags.Text Example")
 //    val jsDomExample = new Example(scalatags.JsDom, "scalatags.JsDom Example")
