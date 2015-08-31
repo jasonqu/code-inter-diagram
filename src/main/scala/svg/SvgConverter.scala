@@ -37,6 +37,7 @@ class SvgConverter[Builder, Output <: FragT, FragT]
         stroke := "Black"
       ),
       text(
+        `class` := rectangle.`class`,
         x := rectangle.origin.x + rectangle.size.width / 2, y := (rectangle.origin.y + rectangle.size.height - 8),
         textAnchor := "middle",
         fill := "Black",

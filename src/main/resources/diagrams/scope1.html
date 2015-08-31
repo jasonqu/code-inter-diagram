@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>D3 Test</title>
+    <link href="../jsgraph.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../lib/d3/d3.min.js"></script>
+
+
+    <link type="text/css" rel="stylesheet" href="../syntaxhighlighter_3.0.83/styles/shCore.css"/> <!--核心样式表(必选)-->
+    <link type="text/css" rel="stylesheet" href="../syntaxhighlighter_3.0.83/styles/shThemeDefault.css"/> <!--主题样式表(多重样式选一)-->
+
+    <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shCore.js"></script> <!--核心js脚本(必选)-->
+    <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript">
+        SyntaxHighlighter.all()
+    </script>
+
+    <script src="../lib/jquery/dist/jquery.js"></script>
+
+</head>
+<body>
+
+<div id="samplecode" style="width: 520px; float:left;">
+<pre class="brush: js">
+var text = "exposed!";
+
+function first(){
+    var insideFirst = "inside first";
+    function second(){
+        var insideFirst = "inside second";
+        console.log(text);        // exposed!
+        console.log(insideFirst); // inside second
+    }
+
+    function third(text){
+        insideThird = "inside third";
+        console.log(text);        // into third
+        console.log(insideFirst); // inside first
+        console.log(insideThird); // inside third
+    }
+    third("into third");
+}
+
+function anotherFunc(){
+    // variables
+    console.log(text);        // exposed!
+    console.log(insideThird); // inside third
+    console.log(insideFirst); // ReferenceError
+    // functions
+    first();
+    second();  // ReferenceError
+}
+
+first();
+anotherFunc();
+</pre>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // scope 是一个树形结构, linenum >= 1
+        var blocks = {
+          "min":1,"max":31,"id":"global",
+          "children":[
+            {"min":3,"max":18,"id":"first global","children":[
+              {"min":5,"max":9,"id":"second first global","children":[]},
+              {"min":11,"max":16,"id":"third first global","children":[]}]},
+            {"min":20,"max":28,"id":"anotherFunc global","children":[]}]
+          };
+
+        var svgids = ["global", "first", "second", "third", "anotherFunc"];
+
+        Array.prototype.diff = function(a) {
+          return this.filter(function(i) {return a.indexOf(i) < 0;});
+        };
+
+        var getrange = function(node, lineNum) {
+            lineNum = lineNum || 0;
+            //console.log("in " + node.min + " : " + node.max + " for line " + lineNum);
+            if(node.min > lineNum || node.max < lineNum) {
+                return {"min":0,"max":0,"id":""};
+            }
+
+            if(node.children) {
+                for (var i = 0; i < node.children.length; i++) {
+                    var childRange = getrange(node.children[i], lineNum);
+                    if(childRange.min > 0) {
+                        return childRange;
+                    }
+                }
+            }
+            return node;
+        };
+
+        $('#samplecode').delegate('.line','mouseenter',function(){
+            //$(this).closest("div").toggleClass('highlighted');
+            var classList = $(this).attr('class').split(/\s+/);
+            $.each(classList, function(index, item){
+                if (item.startsWith('number')) {
+                    var lineNumber = parseInt(item.substring(6));
+                    var range = getrange(blocks, lineNumber);
+                    //console.log(range.min + " : " + range.max + " for line " + lineNumber);
+
+                    if(range.min == 0) {
+                        return;
+                    }
+
+                    for (var i = range.min; i <= range.max; i++) {
+                        $('#samplecode .gutter .number' + i).addClass('highlighted');
+                        $('#samplecode .code .number' + i).addClass('highlighted');
+                    }
+
+                    //console.log(range.id);
+                    $.each(svgids.diff(range.id.split(/\s+/)), function(index, value) {
+                       $("#" + this).attr('opacity','0.5')
+                    });
+                }
+            });
+        });
+
+        $('#samplecode').delegate('.line','mouseleave',function(){
+            $('#samplecode .line').removeClass('highlighted');
+            $.each(svgids, function(index, value) {
+              $("#" + this).attr('opacity',"1")
+            });
+        });
+    });
+</script>
+
+<svg id="codegraph" width="800" height="600">
+    <defs>
+        <filter id="f3" x="0" y="0" width="200%" height="200%">
+            <feOffset result="offOut" in="SourceAlpha" dx="1" dy="1" />
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+        </filter>
+    </defs>
+
+    <defs>
+        <marker id="markerCircle" markerWidth="8" markerHeight="8" refx="5" refy="5">
+            <circle cx="5" cy="5" r="3" style="stroke: none; fill:#000000;"/>
+        </marker>
+
+        <marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto">
+            <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+        </marker>
+    </defs>
+
+
+    <g id="third" transform="translate(40,200)"><rect x="0" y="0" class="wrapper" width="170" height="60"></rect><g><rect class="header" x="0" y="0" width="170" height="30" fill="rgba(0,0,255,0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="85" y="22" text-anchor="middle" fill="Black">third</text></g>
+        <g><rect class="content" x="0" y="30" width="85" height="30" fill="rgba(0,0,255,0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="42" y="52" text-anchor="middle" fill="Black">text</text></g>
+        <g><rect class="content" x="85" y="30" width="85" height="30" fill="rgba(0,0,255,0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="127" y="52" text-anchor="middle" fill="Black">argument</text></g>
+    </g>
+
+    <g id="second" transform="translate(40,50)"><rect x="0" y="0" class="wrapper" width="170" height="60"></rect><g><rect class="header" x="0" y="0" width="170" height="30" fill="rgba(0,0,255,0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="85" y="22" text-anchor="middle" fill="Black">second</text></g>
+        <g><rect class="content" x="0" y="30" width="85" height="30" fill="rgba(0,0,255,0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="42" y="52" text-anchor="middle" fill="Black">insideFirst</text></g>
+        <g><rect class="content" x="85" y="30" width="85" height="30" fill="rgba(0,0,255,0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="127" y="52" text-anchor="middle" fill="Black">inside second</text></g>
+    </g>
+
+    <g id="first" transform="translate(280,125)"><rect x="0" y="0" class="wrapper" width="170" height="120"></rect><g><rect class="header" x="0" y="0" width="170" height="30" fill="rgba(204, 102, 255, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="85" y="22" text-anchor="middle" fill="Black">first</text></g>
+        <g><rect class="content" x="0" y="30" width="85" height="30" fill="rgba(204, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="42" y="52" text-anchor="middle" fill="Black">insideFirst</text></g>
+        <g><rect class="content" x="85" y="30" width="85" height="30" fill="rgba(204, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="127" y="52" text-anchor="middle" fill="Black">inside first</text></g>
+        <g><rect class="content" x="0" y="60" width="85" height="30" fill="rgba(204, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="42" y="82" text-anchor="middle" fill="Black">second</text></g>
+        <g><rect class="content" x="85" y="60" width="85" height="30" fill="rgba(204, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="127" y="82" text-anchor="middle" fill="Black">(function)</text></g>
+        <g><rect class="content" x="0" y="90" width="85" height="30" fill="rgba(204, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="42" y="112" text-anchor="middle" fill="Black">third</text></g>
+        <g><rect class="content" x="85" y="90" width="85" height="30" fill="rgba(204, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="127" y="112" text-anchor="middle" fill="Black">(function)</text></g>
+    </g>
+
+    <g id="anotherFunc" transform="translate(280,325)"><rect x="0" y="0" class="wrapper" width="170" height="30"></rect><g><rect class="header" x="0" y="0" width="170" height="30" fill="rgba(204, 102, 255, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="85" y="22" text-anchor="middle" fill="Black">anotherFunc</text></g>
+
+    </g>
+
+    <g id="global" transform="translate(520,225)"><rect x="0" y="0" class="wrapper" width="170" height="180"></rect><g><rect class="header" x="0" y="0" width="170" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="85" y="22" text-anchor="middle" fill="Black">Global object</text></g>
+        <g><rect class="content" x="0" y="30" width="85" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="42" y="52" text-anchor="middle" fill="Black">window</text></g>
+        <g><rect class="content" x="85" y="30" width="85" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="127" y="52" text-anchor="middle" fill="Black">(object)</text></g>
+        <g><rect class="content" x="0" y="60" width="85" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="42" y="82" text-anchor="middle" fill="Black">text</text></g>
+        <g><rect class="content" x="85" y="60" width="85" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="127" y="82" text-anchor="middle" fill="Black">exposed!</text></g>
+        <g><rect class="content" x="0" y="90" width="85" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="42" y="112" text-anchor="middle" fill="Black">first</text></g>
+        <g><rect class="content" x="85" y="90" width="85" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="127" y="112" text-anchor="middle" fill="Black">(function)</text></g>
+        <g><rect class="content" x="0" y="120" width="85" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="42" y="142" text-anchor="middle" fill="Black">anotherFunc</text></g>
+        <g><rect class="content" x="85" y="120" width="85" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="127" y="142" text-anchor="middle" fill="Black">(function)</text></g>
+        <g><rect class="content" x="0" y="150" width="85" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="42" y="172" text-anchor="middle" fill="Black">insideThird</text></g>
+        <g><rect class="content" x="85" y="150" width="85" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="127" y="172" text-anchor="middle" fill="Black">inside third</text></g>
+    </g>
+
+    <path d="M190,215 H235 V140 H272" class="connecting"></path>
+    <path d="M190,65 H235 V140 H272" class="connecting"></path>
+    <path d="M430,140 H475 V240 H512" class="connecting"></path>
+    <path d="M430,340 H475 V240 H512" class="connecting"></path>
+
+</svg>
+
+</div>
+</body>
+</html>

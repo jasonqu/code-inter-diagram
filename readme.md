@@ -16,4 +16,5 @@ trait
 
 
 
-
+JavaScript array difference
+http://stackoverflow.com/questions/1187518/javascript-array-difference
