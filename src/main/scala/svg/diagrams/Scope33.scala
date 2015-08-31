@@ -2,16 +2,16 @@ package svg.diagrams
 
 import svg._
 
-object Scope32 extends App {
+object Scope33 extends App {
   val headersize = Size(150, 30)
   val ec = ClassDiagram("add", Point(100, 100), headersize, "execution context", "rgba(0, 102, 255, 0.5)", ("scope chain", "") :: Nil)
   val scopeec = ClassDiagram("scope", Point(350, 100), headersize, "Scope Chain", "rgba(255, 153, 0, 0.5)", ("0", "") :: ("1", "") :: Nil)
   val activate = ClassDiagram("activate", Point(600, 100), headersize, "Activation object", "rgba(51, 204, 51, 0.5)",
     ("this", "window") ::("arguments", "[5]") ::("x", "5") :: Nil)
   val global = ClassDiagram("global", Point(600, 300), headersize, "Global object", "rgba(255, 0, 102, 0.5)",
-    ("this", "window") ::("window", "(object)") ::("makeAdder", "(function)") ::("add5", "undefined") :: Nil)
+    ("this", "window") ::("window", "(object)") ::("makeAdder", "(function)") ::("add5", "(function)") :: Nil)
 
-  val add = ClassDiagram("add", Point(100, 300), headersize, "closure1", "rgba(0, 102, 255, 0.5)", ("[[scope]]", "") :: Nil)
+  val add = ClassDiagram("add", Point(100, 300), headersize, "add5", "rgba(0, 102, 255, 0.5)", ("[[scope]]", "") :: Nil)
   val scope = ClassDiagram("scope", Point(350, 300), headersize, "Scope Chain", "rgba(255, 153, 0, 0.5)", ("0", "") :: ("1", "") :: Nil)
 
   val path1 = Path(Point(212, 145), Point(350, 115))

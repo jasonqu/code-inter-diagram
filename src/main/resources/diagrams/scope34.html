@@ -22,7 +22,7 @@
 <body>
 
 <div id="samplecode" style="width: 520px; float:left;">
-<pre class="brush: js; highlight: [7]">
+<pre class="brush: js; highlight: [8]">
 function makeAdder(x) {
   return function(y) {
     return x + y;
@@ -56,12 +56,24 @@ console.log(add10(2)); // 12
         </marker>
     </defs>
 
-    <g id="add" transform="translate(100,300)"><rect x="0" y="0" class="wrapper" width="150" height="60"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">closure1</text></g>
+    <g id="add5" transform="translate(100,270)"><rect x="0" y="0" class="wrapper" width="150" height="60"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">add5</text></g>
         <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="52" text-anchor="middle" fill="Black">[[scope]]</text></g>
         <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="52" text-anchor="middle" fill="Black"></text></g>
     </g>
 
-    <g id="scope" transform="translate(350,300)"><rect x="0" y="0" class="wrapper" width="150" height="90"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">Scope Chain</text></g>
+    <g id="scope5" transform="translate(350,270)"><rect x="0" y="0" class="wrapper" width="150" height="90"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">Scope Chain</text></g>
+        <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="52" text-anchor="middle" fill="Black">0</text></g>
+        <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="52" text-anchor="middle" fill="Black"></text></g>
+        <g><rect class="content" x="0" y="60" width="75" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="82" text-anchor="middle" fill="Black">1</text></g>
+        <g><rect class="content" x="75" y="60" width="75" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="82" text-anchor="middle" fill="Black"></text></g>
+    </g>
+
+    <g id="add10" transform="translate(100,440)"><rect x="0" y="0" class="wrapper" width="150" height="60"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">add10</text></g>
+        <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="52" text-anchor="middle" fill="Black">[[scope]]</text></g>
+        <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="52" text-anchor="middle" fill="Black"></text></g>
+    </g>
+
+    <g id="scope10" transform="translate(350,440)"><rect x="0" y="0" class="wrapper" width="150" height="90"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">Scope Chain</text></g>
         <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="52" text-anchor="middle" fill="Black">0</text></g>
         <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="52" text-anchor="middle" fill="Black"></text></g>
         <g><rect class="content" x="0" y="60" width="75" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="82" text-anchor="middle" fill="Black">1</text></g>
@@ -89,7 +101,16 @@ console.log(add10(2)); // 12
         <g><rect class="content" x="75" y="90" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="112" text-anchor="middle" fill="Black">5</text></g>
     </g>
 
-    <g id="global" transform="translate(600,300)"><rect x="0" y="0" class="wrapper" width="150" height="150"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">Global object</text></g>
+    <g id="activate10" transform="translate(600,460)"><rect x="0" y="0" class="wrapper" width="150" height="120"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">Activation object</text></g>
+        <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="52" text-anchor="middle" fill="Black">this</text></g>
+        <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="52" text-anchor="middle" fill="Black">window</text></g>
+        <g><rect class="content" x="0" y="60" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="82" text-anchor="middle" fill="Black">arguments</text></g>
+        <g><rect class="content" x="75" y="60" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="82" text-anchor="middle" fill="Black">[10]</text></g>
+        <g><rect class="content" x="0" y="90" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="112" text-anchor="middle" fill="Black">x</text></g>
+        <g><rect class="content" x="75" y="90" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="112" text-anchor="middle" fill="Black">10</text></g>
+    </g>
+
+    <g id="global" transform="translate(600,250)"><rect x="0" y="0" class="wrapper" width="150" height="180"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">Global object</text></g>
         <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="52" text-anchor="middle" fill="Black">this</text></g>
         <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="52" text-anchor="middle" fill="Black">window</text></g>
         <g><rect class="content" x="0" y="60" width="75" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="82" text-anchor="middle" fill="Black">window</text></g>
@@ -97,15 +118,20 @@ console.log(add10(2)); // 12
         <g><rect class="content" x="0" y="90" width="75" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="112" text-anchor="middle" fill="Black">makeAdder</text></g>
         <g><rect class="content" x="75" y="90" width="75" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="112" text-anchor="middle" fill="Black">(function)</text></g>
         <g><rect class="content" x="0" y="120" width="75" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="142" text-anchor="middle" fill="Black">add5</text></g>
-        <g><rect class="content" x="75" y="120" width="75" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="142" text-anchor="middle" fill="Black">undefined</text></g>
+        <g><rect class="content" x="75" y="120" width="75" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="142" text-anchor="middle" fill="Black">(function)</text></g>
+        <g><rect class="content" x="0" y="150" width="75" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="172" text-anchor="middle" fill="Black">add10</text></g>
+        <g><rect class="content" x="75" y="150" width="75" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="172" text-anchor="middle" fill="Black">(function)</text></g>
     </g>
 
     <path d="M212,145 H281 V115 H342" class="connecting"></path>
     <path d="M462,145 H531 V110 H592" class="connecting"></path>
-    <path d="M462,175 H531 V307 H592" class="connecting"></path>
-    <path d="M212,345 H281 V315 H342" class="connecting"></path>
-    <path d="M462,345 H541 V120 H592" class="connecting"></path>
-    <path d="M462,375 H551 V323 H592" class="connecting"></path>
+    <path d="M462,175 H531 V257 H592" class="connecting"></path>
+    <path d="M212,315 H281 V285 H342" class="connecting"></path>
+    <path d="M462,315 H541 V120 H592" class="connecting"></path>
+    <path d="M462,345 H551 V265 H592" class="connecting"></path>
+    <path d="M212,485 H281 V455 H342" class="connecting"></path>
+    <path d="M462,485 H571 V475 H592" class="connecting"></path>
+    <path d="M462,515 H561 V273 H592" class="connecting"></path>
 
 </svg>
 

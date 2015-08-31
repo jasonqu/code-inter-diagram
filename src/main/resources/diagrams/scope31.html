@@ -22,13 +22,18 @@
 <body>
 
 <div id="samplecode" style="width: 520px; float:left;">
-<pre class="brush: js; highlight: [1,2,3,4]">
-function add(num1, num2) {
-  var sum = num1 + num2;
-  return sum;
+<pre class="brush: js; highlight: [1,2,3,4,5]">
+function makeAdder(x) {
+  return function(y) {
+    return x + y;
+  };
 }
 
-var total = add(5, 10);
+var add5 = makeAdder(5);
+var add10 = makeAdder(10);
+
+console.log(add5(2));  // 7
+console.log(add10(2)); // 12
 </pre>
 </div>
 
