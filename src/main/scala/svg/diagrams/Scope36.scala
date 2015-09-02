@@ -23,8 +23,8 @@ object Scope36 extends App {
     ("this", "window") ::("arguments", "[2]") ::("y", "2") :: Nil)
 
   val path1 = Path(Point(212, 145), Point(350, 115))
-  val pathclosure = Path(Point(462, 145), Point(600, 615), -10)
-  val path2 = Path(Point(462, 175), Point(600, 110))
+  val pathclosure = Path(Point(462, 145), Point(600, 615), -20)
+  val path2 = Path(Point(462, 175), Point(600, 467), -10)
   val path3 = Path(Point(462, 205), Point(600, 257))
 
   val path4 = Path(Point(212, 315), Point(350, 285))
@@ -32,7 +32,7 @@ object Scope36 extends App {
   val path6 = Path(Point(462, 345), Point(600, 265), 20)
 
   val path7 = Path(Point(212, 485), Point(350, 455))
-  val path8 = Path(Point(462, 485), Point(600, 475), 40)
+  val path8 = Path(Point(462, 485), Point(600, 485), 40)
   val path9 = Path(Point(462, 515), Point(600, 273), 30)
 
   (add5 :: scope5 :: add10 :: scope10 :: ec :: scopeec :: activate5 :: activateclosure :: activate10 :: global :: path1 :: path2 :: path3 :: path4 :: path5 :: path6 :: path7 :: path8 :: path9 :: pathclosure :: List[SvgGraph]()).map(_.render) foreach println
