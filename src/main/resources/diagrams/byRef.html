@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>D3 Test</title>
+    <link href="../jsgraph.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../lib/d3/d3.min.js"></script>
+
+
+    <link type="text/css" rel="stylesheet" href="../syntaxhighlighter_3.0.83/styles/shCore.css"/> <!--核心样式表(必选)-->
+    <link type="text/css" rel="stylesheet" href="../syntaxhighlighter_3.0.83/styles/shThemeDefault.css"/> <!--主题样式表(多重样式选一)-->
+
+    <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shCore.js"></script> <!--核心js脚本(必选)-->
+    <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript">
+        SyntaxHighlighter.all()
+    </script>
+
+    <script src="../lib/jquery/dist/jquery.js"></script>
+
+</head>
+<body>
+
+<div id="samplecode" style="width: 520px; float:left;">
+<pre class="brush: js; highlight: [1,2,3,4]">
+var a = {name:"a"};
+var b = a;
+b.name = "b";
+</pre>
+</div>
+
+<svg id="codegraph" width="1000" height="1000">
+    <defs>
+        <filter id="f3" x="0" y="0" width="200%" height="200%">
+            <feOffset result="offOut" in="SourceAlpha" dx="1" dy="1" />
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+        </filter>
+    </defs>
+
+    <defs>
+        <marker id="markerCircle" markerWidth="8" markerHeight="8" refx="5" refy="5">
+            <circle cx="5" cy="5" r="3" style="stroke: none; fill:#000000;"/>
+        </marker>
+
+        <marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto">
+            <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+        </marker>
+    </defs>
+
+    <g id="num1" transform="translate(100,100)"><rect x="0" y="0" class="wrapper" width="150" height="120"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">复制前</text></g>
+        <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="52" text-anchor="middle" fill="Black"></text></g>
+        <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="52" text-anchor="middle" fill="Black"></text></g>
+        <g><rect class="content" x="0" y="60" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="82" text-anchor="middle" fill="Black"></text></g>
+        <g><rect class="content" x="75" y="60" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="82" text-anchor="middle" fill="Black"></text></g>
+        <g><rect class="content" x="0" y="90" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="header" x="37" y="112" text-anchor="middle" fill="Black">a</text></g>
+        <g><rect class="content" x="75" y="90" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="header" x="112" y="112" text-anchor="middle" fill="Black"></text></g>
+    </g>
+
+    <g id="num11" transform="translate(400,190)"><rect x="0" y="0" class="wrapper" width="150" height="60"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">Object</text></g>
+        <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="header" x="37" y="52" text-anchor="middle" fill="Black">name</text></g>
+        <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="header" x="112" y="52" text-anchor="middle" fill="Black">a</text></g>
+    </g>
+
+    <g id="num2" transform="translate(100,300)"><rect x="0" y="0" class="wrapper" width="150" height="120"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">复制后</text></g>
+        <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="52" text-anchor="middle" fill="Black"></text></g>
+        <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="52" text-anchor="middle" fill="Black"></text></g>
+        <g><rect class="content" x="0" y="60" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="header" x="37" y="82" text-anchor="middle" fill="Black">b</text></g>
+        <g><rect class="content" x="75" y="60" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="header" x="112" y="82" text-anchor="middle" fill="Black"></text></g>
+        <g><rect class="content" x="0" y="90" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="112" text-anchor="middle" fill="Black">a</text></g>
+        <g><rect class="content" x="75" y="90" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="112" text-anchor="middle" fill="Black"></text></g>
+    </g>
+
+    <g id="num22" transform="translate(400,375)"><rect x="0" y="0" class="wrapper" width="150" height="60"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">Object</text></g>
+        <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="52" text-anchor="middle" fill="Black">name</text></g>
+        <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="52" text-anchor="middle" fill="Black">a</text></g>
+    </g>
+
+    <g id="num3" transform="translate(100,500)"><rect x="0" y="0" class="wrapper" width="150" height="120"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">修改b的name</text></g>
+        <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="52" text-anchor="middle" fill="Black"></text></g>
+        <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="52" text-anchor="middle" fill="Black"></text></g>
+        <g><rect class="content" x="0" y="60" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="82" text-anchor="middle" fill="Black">b</text></g>
+        <g><rect class="content" x="75" y="60" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="82" text-anchor="middle" fill="Black"></text></g>
+        <g><rect class="content" x="0" y="90" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="37" y="112" text-anchor="middle" fill="Black">a</text></g>
+        <g><rect class="content" x="75" y="90" width="75" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="content" x="112" y="112" text-anchor="middle" fill="Black"></text></g>
+    </g>
+
+    <g id="num33" transform="translate(400,575)"><rect x="0" y="0" class="wrapper" width="150" height="60"></rect><g><rect class="header" x="0" y="0" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="75" y="22" text-anchor="middle" fill="Black">Object</text></g>
+        <g><rect class="content" x="0" y="30" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="header" x="37" y="52" text-anchor="middle" fill="Black">name</text></g>
+        <g><rect class="content" x="75" y="30" width="75" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="0.2" stroke-width="1" stroke="Black"></rect><text class="header" x="112" y="52" text-anchor="middle" fill="Black">b</text></g>
+    </g>
+
+    <path d="M212,205 H306 V205 H392" class="connecting"></path>
+    <path d="M212,375 H306 V390 H392" class="connecting"></path>
+    <path d="M212,405 H306 V390 H392" class="connecting"></path>
+    <path d="M212,575 H306 V590 H392" class="connecting"></path>
+    <path d="M212,605 H306 V590 H392" class="connecting"></path>
+
+</svg>
+
+</div>
+</body>
+</html>

@@ -31,9 +31,14 @@ case class ClassDiagram(elemId: String, origin: Point, headerSize: Size, title: 
 }
 
 
-case class Path(origin: Point, end: Point, deviation: Int = 0) extends SvgGraph {
+case class Path(origin: Point, end: Point, deviation: Int = 0, horizontal: Boolean = true) extends SvgGraph {
   // M390,145 H450 V115 H492
-  lazy val data = s"""M${origin.x},${origin.y} H${(end.x + origin.x)/2 + deviation} V${end.y} H${end.x - 8}"""
+  lazy val data =
+    if(horizontal) {
+      s"""M${origin.x},${origin.y} H${(end.x + origin.x)/2 + deviation} V${end.y} H${end.x - 8}"""
+    } else {
+      s"""M${origin.x},${origin.y} V${end.x} H${(end.y + origin.y)/2 + deviation} V${end.y - 8}"""
+    }
   override def render: String = SvgConverter.genPath(this)
 }
 

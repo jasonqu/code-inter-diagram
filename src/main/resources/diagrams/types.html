@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>D3 Test</title>
+    <link href="../jsgraph.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../lib/d3/d3.min.js"></script>
+
+
+    <link type="text/css" rel="stylesheet" href="../syntaxhighlighter_3.0.83/styles/shCore.css"/> <!--核心样式表(必选)-->
+    <link type="text/css" rel="stylesheet" href="../syntaxhighlighter_3.0.83/styles/shThemeDefault.css"/> <!--主题样式表(多重样式选一)-->
+
+    <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shCore.js"></script> <!--核心js脚本(必选)-->
+    <script type="text/javascript" src="../syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript">
+        SyntaxHighlighter.all()
+    </script>
+
+    <script src="../lib/jquery/dist/jquery.js"></script>
+
+</head>
+<body>
+
+<div id="samplecode" style="width: 520px; float:left;">
+
+
+<svg id="codegraph" width="1000" height="1000">
+    <defs>
+        <filter id="f3" x="0" y="0" width="200%" height="200%">
+            <feOffset result="offOut" in="SourceAlpha" dx="1" dy="1" />
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+        </filter>
+    </defs>
+
+    <defs>
+        <marker id="markerCircle" markerWidth="8" markerHeight="8" refx="5" refy="5">
+            <circle cx="5" cy="5" r="3" style="stroke: none; fill:#000000;"/>
+        </marker>
+
+        <marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto">
+            <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+        </marker>
+    </defs>
+
+    <g><rect class="header" x="100" y="360" width="150" height="30" fill="rgba(0, 102, 255, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="175" y="382" text-anchor="middle" fill="Black">Javascript对象</text></g>
+    <path d="M250,375 H275 V215 H292" class="connecting"></path>
+    <path d="M250,375 H275 V540 H292" class="connecting"></path>
+    <g><rect class="content" x="300" y="200" width="150" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="375" y="222" text-anchor="middle" fill="Black">值类型</text></g>
+    <g><rect class="content" x="300" y="525" width="150" height="30" fill="rgba(255, 153, 0, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="375" y="547" text-anchor="middle" fill="Black">引用类型</text></g>
+    <path d="M450,215 H475 V115 H492" class="connecting"></path>
+    <path d="M450,215 H475 V165 H492" class="connecting"></path>
+    <path d="M450,215 H475 V215 H492" class="connecting"></path>
+    <path d="M450,215 H475 V265 H492" class="connecting"></path>
+    <path d="M450,215 H475 V315 H492" class="connecting"></path>
+    <g><rect class="header" x="500" y="100" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="575" y="122" text-anchor="middle" fill="Black">Number数字</text></g>
+    <g><rect class="header" x="500" y="150" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="575" y="172" text-anchor="middle" fill="Black">String字符串</text></g>
+    <g><rect class="header" x="500" y="200" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="575" y="222" text-anchor="middle" fill="Black">Boolean布尔</text></g>
+    <g><rect class="header" x="500" y="250" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="575" y="272" text-anchor="middle" fill="Black">Null</text></g>
+    <g><rect class="header" x="500" y="300" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="575" y="322" text-anchor="middle" fill="Black">Undefined</text></g>
+    <path d="M650,115 H675 V85 H692" class="connecting"></path>
+    <path d="M650,115 H675 V145 H692" class="connecting"></path>
+    <path d="M650,265 H675 V265 H692" class="connecting"></path>
+    <path d="M650,315 H675 V315 H692" class="connecting"></path>
+    <g><rect class="content" x="700" y="70" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="775" y="92" text-anchor="middle" fill="Black">NaN 非数字</text></g>
+    <g><rect class="content" x="700" y="130" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="775" y="152" text-anchor="middle" fill="Black">Infinity 无限大</text></g>
+    <g><rect class="content" x="700" y="250" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="775" y="272" text-anchor="middle" fill="Black">null</text></g>
+    <g><rect class="content" x="700" y="300" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="775" y="322" text-anchor="middle" fill="Black">undefined</text></g>
+    <path d="M450,540 H475 V415 H492" class="connecting"></path>
+    <path d="M450,540 H475 V465 H492" class="connecting"></path>
+    <path d="M450,540 H475 V515 H492" class="connecting"></path>
+    <path d="M450,540 H475 V565 H492" class="connecting"></path>
+    <path d="M450,540 H475 V615 H492" class="connecting"></path>
+    <path d="M450,540 H475 V665 H492" class="connecting"></path>
+    <g><rect class="header" x="500" y="400" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="575" y="422" text-anchor="middle" fill="Black">Object 对象</text></g>
+    <g><rect class="header" x="500" y="450" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="575" y="472" text-anchor="middle" fill="Black">Function 函数</text></g>
+    <g><rect class="header" x="500" y="500" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="575" y="522" text-anchor="middle" fill="Black">Array 数组</text></g>
+    <g><rect class="header" x="500" y="550" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="575" y="572" text-anchor="middle" fill="Black">Date 日期</text></g>
+    <g><rect class="header" x="500" y="600" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="575" y="622" text-anchor="middle" fill="Black">RegExp 正则</text></g>
+    <g><rect class="header" x="500" y="650" width="150" height="30" fill="rgba(51, 204, 51, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="header" x="575" y="672" text-anchor="middle" fill="Black">Error 错误</text></g>
+    <path d="M650,665 H675 V665 H692" class="connecting"></path>
+    <g><rect class="content" x="700" y="575" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="775" y="597" text-anchor="middle" fill="Black">EvalError</text></g>
+    <g><rect class="content" x="700" y="605" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="775" y="627" text-anchor="middle" fill="Black">RangeError</text></g>
+    <g><rect class="content" x="700" y="635" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="775" y="657" text-anchor="middle" fill="Black">ReferenceError</text></g>
+    <g><rect class="content" x="700" y="665" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="775" y="687" text-anchor="middle" fill="Black">SyntaxError</text></g>
+    <g><rect class="content" x="700" y="695" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="775" y="717" text-anchor="middle" fill="Black">TypeError</text></g>
+    <g><rect class="content" x="700" y="725" width="150" height="30" fill="rgba(255, 0, 102, 0.5)" fill-opacity="1.0" stroke-width="1" stroke="Black"></rect><text class="content" x="775" y="747" text-anchor="middle" fill="Black">URIError</text></g>
+
+</svg>
+
+</div>
+</body>
+</html>
